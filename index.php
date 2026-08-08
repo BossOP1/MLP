@@ -743,21 +743,26 @@ tailwind.config = {
     <!-- items-start stops the grid stretching the short column to match the tall one -->
     <div class="grid lg:grid-cols-12 gap-8 lg:gap-12 items-start">
 
-      <!-- Category rail -->
-      <div class="lg:col-span-4 lg:sticky lg:top-24">
-        <div class="flex lg:flex-col gap-2 overflow-x-auto no-sb pb-2 lg:pb-0 rv">
+      <!-- Category rail.
+           A grid, not a horizontal scroller: on a phone all six categories stay
+           visible instead of hiding off-screen. min-w-0 is load-bearing either
+           way — grid items default to min-width:auto, so wide inline content
+           sizes the track to its full min-content width (~862px here) and
+           stretches the whole page rather than wrapping. -->
+      <div class="lg:col-span-4 min-w-0 lg:sticky lg:top-24">
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-1 gap-2 rv">
           <?php $ai = 0; foreach ($C['amenities'] as $cat => $items): ?>
             <button data-am-tab="<?= $ai ?>" type="button" aria-pressed="<?= $ai === 0 ? 'true' : 'false' ?>"
-              class="js-am-tab tab shrink-0 text-left px-5 h-14 rounded-[3px] flex items-center justify-between gap-6 lg:w-full <?= $ai === 0 ? 'is-active' : '' ?>">
-              <span class="display text-[19px]"><?= e($cat) ?></span>
-              <span class="tab-count text-[11px] tabular-nums"><?= str_pad((string)count($items), 2, '0', STR_PAD_LEFT) ?></span>
+              class="js-am-tab tab w-full min-w-0 text-left px-4 sm:px-5 h-14 rounded-[3px] flex items-center justify-between gap-3 <?= $ai === 0 ? 'is-active' : '' ?>">
+              <span class="display text-[17px] sm:text-[19px] truncate"><?= e($cat) ?></span>
+              <span class="tab-count text-[11px] tabular-nums shrink-0"><?= str_pad((string)count($items), 2, '0', STR_PAD_LEFT) ?></span>
             </button>
           <?php $ai++; endforeach; ?>
         </div>
       </div>
 
       <!-- Lists — min-height keeps the panel from jumping between categories -->
-      <div class="lg:col-span-8 lg:min-h-[440px]">
+      <div class="lg:col-span-8 min-w-0 lg:min-h-[440px]">
         <?php $ai = 0; foreach ($C['amenities'] as $cat => $items): ?>
           <div data-am-panel="<?= $ai ?>" class="js-am-panel <?= $ai === 0 ? '' : 'hidden' ?>">
             <div class="flex items-baseline justify-between gap-6 pb-5 border-b-2 border-gold">
