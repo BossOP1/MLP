@@ -1,0 +1,11 @@
+# Build output — Netlify regenerates this from source via `php build.php`
+dist/
+
+# Captured leads: contains personal data, never commit
+leads.csv
+
+# Local noise
+.DS_Store
+*.log
+.vscode/
+.idea/

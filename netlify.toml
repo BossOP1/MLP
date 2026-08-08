@@ -1,0 +1,35 @@
+[build]
+  command = "php build.php"
+  publish = "dist"
+
+# Netlify's build image ships a PHP CLI, which is all build.php needs — there is
+# no PHP at request time and none is required, since the site deploys as static
+# HTML with Netlify Forms handling submissions.
+
+[build.environment]
+  NODE_VERSION = "20"
+
+# Pretty URL for the post-submission page.
+[[redirects]]
+  from = "/thank-you"
+  to = "/thank-you.html"
+  status = 200
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    X-Frame-Options = "SAMEORIGIN"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "geolocation=(), microphone=(), camera=(), interest-cohort=()"
+
+# Fingerprinted by ?v=<mtime>, so the files themselves can cache hard.
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/*.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
