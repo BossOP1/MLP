@@ -6,12 +6,6 @@ require_once __DIR__ . '/helpers.php';
 
 /* Schematic unit plans — [x, y, w, h, label] on a 120 × 90 canvas */
 $PLAN_SHAPES = [
-    '2 BHK + Study' => [
-        [3,3,66,42,'Living & Dining'], [3,47,66,12,'Sun Deck'],
-        [3,61,42,26,'Master Bedroom'], [47,61,22,26,'Bath'],
-        [71,3,46,24,'Kitchen'], [71,29,46,16,'Study'],
-        [71,47,46,26,'Bedroom 2'], [71,75,46,12,'Bath 2'],
-    ],
     '3 BHK' => [
         [3,3,60,40,'Living & Dining'], [3,45,60,10,'Deck'],
         [3,57,38,30,'Master Bedroom'], [43,57,20,30,'Bath'],
@@ -23,18 +17,6 @@ $PLAN_SHAPES = [
         [3,55,38,32,'Master Bedroom'], [43,55,20,32,'Bath'],
         [65,3,34,20,'Kitchen'], [101,3,16,20,'Servant'],
         [65,25,52,22,'Bedroom 2'], [65,49,52,22,'Bedroom 3'], [65,73,52,14,'Bath 2'],
-    ],
-    '4 BHK Duplex' => [
-        [3,3,62,44,'Living (Double Height)'], [3,49,62,12,'Sky Deck'],
-        [3,63,40,24,'Master Suite'], [45,63,20,24,'Bath'],
-        [67,3,50,20,'Kitchen & Dining'], [67,25,50,20,'Bedroom 2'],
-        [67,47,50,18,'Bedroom 3'], [67,67,32,20,'Bedroom 4'], [101,67,16,20,'Bath'],
-    ],
-    'Sky Penthouse' => [
-        [3,3,70,46,'Great Room'], [3,51,70,16,'Sky Deck & Plunge Pool'],
-        [3,69,44,18,'Master Suite'], [49,69,24,18,'Walk-in'],
-        [75,3,42,20,'Chef’s Kitchen'], [75,25,42,20,'Bedroom 2'],
-        [75,47,42,20,'Bedroom 3'], [75,69,42,18,'Family Lounge'],
     ],
 ];
 
@@ -62,7 +44,6 @@ $navItems = [
     'gallery'   => 'Gallery',
     'amenities' => 'Amenities',
     'location'  => 'Location Advantages',
-    'brochure'  => 'Brochure',
     'map'       => 'Map',
 ];
 
@@ -252,16 +233,8 @@ tailwind.config = {
       ?>],
       "containsPlace":[<?php
         $cp = [];
-        foreach ($C['plans'] as $pl) $cp[] = '{"@type":"Apartment","name":"'.e($pl['type']).'","floorSize":{"@type":"QuantitativeValue","value":"'.e(str_replace(',','',$pl['carpet'])).'","unitCode":"FTK"}}';
+        foreach ($C['plans'] as $pl) $cp[] = '{"@type":"Apartment","name":"'.e($pl['type']).'","floorSize":{"@type":"QuantitativeValue","value":"'.e(str_replace(',','',$pl['area'])).'","unitCode":"FTK"}}';
         echo implode(',', $cp);
-      ?>]
-    },
-    {
-      "@type":"FAQPage",
-      "mainEntity":[<?php
-        $fq = [];
-        foreach ($C['faq'] as $f) $fq[] = '{"@type":"Question","name":"'.e($f[0]).'","acceptedAnswer":{"@type":"Answer","text":"'.e($f[1]).'"}}';
-        echo implode(',', $fq);
       ?>]
     },
     {
@@ -283,7 +256,7 @@ tailwind.config = {
 <div class="bg-ink text-ivory/85 text-[12px] tracking-wide">
   <div class="max-w-8xl mx-auto px-5 sm:px-8 h-9 flex items-center justify-center gap-2 text-center">
     <span class="w-1.5 h-1.5 rounded-full bg-gold animate-pulse shrink-0"></span>
-    <span><strong class="text-gold font-semibold">Pre-launch pricing</strong> ends this month · Tower&nbsp;C released · <span class="hidden sm:inline">Assured site-visit pick-up across Delhi NCR</span></span>
+    <span><strong class="text-gold font-semibold">Launch pricing</strong> ends this month · New inventory released · <span class="hidden sm:inline">Assured site-visit pick-up across Delhi NCR</span></span>
   </div>
 </div>
 
@@ -366,8 +339,8 @@ tailwind.config = {
           $facts = [
             ['Starting at', $p['price_from'] . '*'],
             ['Possession',  $p['possession']],
-            ['Estate',      '14.2 Acres'],
-            ['Open space',  '82%'],
+            ['Estate',      '17 Acres'],
+            ['Open space',  '7 Acres'],
           ];
           foreach ($facts as $f): ?>
             <div>
@@ -388,6 +361,8 @@ tailwind.config = {
             WhatsApp
           </a>
         </div>
+
+        <p class="mt-7 text-[11px] text-ivory/35 leading-relaxed rv in rv-d4"><?= e($C['image_disclaimer']) ?></p>
       </div>
 
       <!-- Hero lead form -->
@@ -425,16 +400,6 @@ tailwind.config = {
               <label for="h-email" class="sr-only">Email</label>
               <input id="h-email" class="fld" type="email" name="email" placeholder="Email (optional)" autocomplete="email">
             </div>
-            <div>
-              <label for="h-cfg" class="sr-only">Preferred configuration</label>
-              <select id="h-cfg" class="fld text-ivory/85" name="config">
-                <option value="">Preferred configuration</option>
-                <?php foreach ($C['plans'] as $pl): ?>
-                  <option value="<?= e($pl['type']) ?>"><?= e($pl['type']) ?> · <?= e($pl['carpet']) ?> sq.ft</option>
-                <?php endforeach; ?>
-              </select>
-            </div>
-
             <button class="btn btn-gold h-12 rounded-full text-[14px] mt-1">
               Get Instant Callback
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14m-6-7 7 7-7 7"/></svg>
@@ -456,8 +421,8 @@ tailwind.config = {
   <div class="flex whitespace-nowrap py-4">
     <ul class="marquee flex shrink-0 items-center gap-12 pr-12 text-[12px] tracking-[.14em] uppercase font-medium">
       <?php
-      $ticker = ['HARERA Registered', '82% Open & Landscaped', '45+ Amenities', 'IGCC Pre-certified Green', '20 min to IGI Airport',
-                 'Approved by SBI · HDFC · ICICI', '6 Towers · G+38', 'Possession Dec 2028', '24×7 Concierge'];
+      $ticker = ['HARERA Registered', '17-Acre Gated Estate', '7 Acres of Open Green', '29+ Amenities',
+                 '30:70 Payment Plan', 'Approved by SBI · HDFC', '4 Towers', 'Possession Oct 2030', '24×7 Security'];
       for ($i = 0; $i < 2; $i++):
         foreach ($ticker as $t): ?>
           <li class="flex items-center gap-12"><span><?= e($t) ?></span><span class="w-1 h-1 rounded-full bg-gold/70"></span></li>
@@ -476,21 +441,19 @@ tailwind.config = {
         <p class="eyebrow text-gold-700 rv">01 — Overview</p>
         <div class="rule w-20 mt-3.5 mb-7 rv"></div>
         <h2 class="display font-light text-[clamp(2rem,4.6vw,3.4rem)] leading-[1.03] tracking-tightest rv">
-          Fourteen acres that<br>refuse to feel like<br><em class="not-italic text-gold-600">Gurugram.</em>
+          Seventeen acres<br>designed for<br><em class="not-italic text-gold-600">elevated living.</em>
         </h2>
         <div class="mt-7 space-y-5 text-[15.5px] leading-relaxed text-ink-500 max-w-lg rv rv-d1">
-          <p>The Reserve is built the way estates were before density won — six slender towers pushed to the edges, and the entire centre given back as forest, water and sky.</p>
-          <p>Every residence is a corner. Every home takes light from three sides, cross-ventilates naturally, and opens onto a deck deep enough to actually live on. Ceilings rise to 10'6". Windows run floor to ceiling.</p>
-          <p>Below, a 22,000 sq.ft clubhouse, a 70-metre pool, and a 1.2 km loop that never crosses a car.</p>
+          <p>Indiabulls Heights brings together spacious luxury residences, landscaped surroundings and a premium lifestyle on Dwarka Expressway — creating a home designed for families who value space, comfort and connectivity.</p>
         </div>
 
         <div class="mt-9 grid grid-cols-2 gap-x-8 gap-y-6 max-w-md rv rv-d2">
           <?php
           $usps = [
-            ['3-side open homes', 'Corner-unit layouts throughout'],
-            ['10\'6" ceilings',   'Floor-to-ceiling glazing'],
-            ['Zero-car podium',   'All parking below grade'],
-            ['IGBC Gold target',  'Solar, STP, rainwater'],
+            ['Premium residences',  'Spacious 3 BHK homes'],
+            ['30:70 payment plan',  'Flexible payment structure'],
+            ['Premium clubhouse',   'Lifestyle amenities for everyday living'],
+            ['Dwarka Expressway',   'A well-connected Gurugram address'],
           ];
           foreach ($usps as $x): ?>
             <div class="border-t border-line pt-4">
@@ -522,6 +485,8 @@ tailwind.config = {
           </figure>
         </div>
 
+        <p class="text-[11.5px] text-ink-500/80 mt-4 leading-relaxed"><?= e($C['image_disclaimer']) ?></p>
+
         <!-- Stat counters -->
         <div class="grid grid-cols-2 sm:grid-cols-4 gap-px bg-line mt-5 rounded-[3px] overflow-hidden">
           <?php foreach ($C['stats'] as $i => $s): ?>
@@ -547,7 +512,7 @@ tailwind.config = {
         <p class="eyebrow text-gold-700 rv">02 — Layout Plan</p>
         <div class="rule w-20 mt-3.5 mb-6 rv"></div>
         <h2 class="display font-light text-[clamp(2rem,4.6vw,3.4rem)] leading-[1.03] tracking-tightest rv">
-          Five plans.<br>Not one wasted <em class="not-italic text-gold-600">square foot.</em>
+          Spacious plans.<br>No wasted <em class="not-italic text-gold-600">space.</em>
         </h2>
       </div>
       <p class="max-w-sm text-[15px] text-ink-500 leading-relaxed rv rv-d1">
@@ -558,8 +523,8 @@ tailwind.config = {
     <!-- Tabs -->
     <div class="flex gap-2 overflow-x-auto no-sb pb-2 -mx-1 px-1 rv">
       <?php foreach ($C['plans'] as $i => $pl): ?>
-        <button data-plan-tab="<?= $i ?>" type="button" aria-pressed="<?= $i === 1 ? 'true' : 'false' ?>"
-          class="js-plan-tab tab shrink-0 h-11 px-5 rounded-full text-[13.5px] font-semibold <?= $i === 1 ? 'is-active' : '' ?>">
+        <button data-plan-tab="<?= $i ?>" type="button" aria-pressed="<?= $i === 0 ? 'true' : 'false' ?>"
+          class="js-plan-tab tab shrink-0 h-11 px-5 rounded-full text-[13.5px] font-semibold <?= $i === 0 ? 'is-active' : '' ?>">
           <?= e($pl['type']) ?>
         </button>
       <?php endforeach; ?>
@@ -568,36 +533,82 @@ tailwind.config = {
     <!-- Panels -->
     <div class="mt-8">
       <?php foreach ($C['plans'] as $i => $pl): ?>
-        <div data-plan-panel="<?= $i ?>" class="js-plan-panel <?= $i === 1 ? '' : 'hidden' ?>">
+        <div data-plan-panel="<?= $i ?>" class="js-plan-panel <?= $i === 0 ? '' : 'hidden' ?>">
           <div class="grid lg:grid-cols-12 gap-8 lg:gap-12 items-center bg-ivory border border-line rounded-[3px] p-6 sm:p-10">
 
-            <div class="lg:col-span-7 text-ink">
-              <div class="max-w-2xl mx-auto"><?= render_plan($PLAN_SHAPES[$pl['type']]) ?></div>
+            <!-- Plan is blurred until the visitor identifies themselves — the
+                 floor plan is the strongest thing this page has to trade. -->
+            <div class="lg:col-span-7 min-w-0">
+              <div class="relative overflow-hidden rounded-[3px] border border-line bg-ivory-200/60">
+                <div class="js-plan-art text-ink px-4 py-6 sm:px-8 transition-all duration-700"
+                     style="filter:blur(9px); transform:scale(1.03); user-select:none" aria-hidden="true">
+                  <?= render_plan($PLAN_SHAPES[$pl['type']]) ?>
+                </div>
+
+                <!-- Unlock overlay -->
+                <div class="js-plan-gate absolute inset-0 grid place-items-center p-5 sm:p-8
+                            bg-gradient-to-b from-ivory/70 via-ivory/85 to-ivory">
+                  <div class="w-full max-w-sm text-center">
+                    <span class="inline-grid place-items-center w-11 h-11 rounded-full bg-ink text-gold mb-4">
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                        <rect x="4" y="10.5" width="16" height="10" rx="2"/><path d="M8 10.5V7a4 4 0 0 1 8 0"/>
+                      </svg>
+                    </span>
+                    <h4 class="display text-[21px] sm:text-[24px] leading-tight">Unlock the <?= e($pl['type']) ?> floor plan</h4>
+                    <p class="text-[13px] text-ink-500 mt-2">Dimensioned plan sent instantly on WhatsApp.</p>
+
+                    <form method="post" class="mt-5 grid gap-3.5 text-left" novalidate>
+                      <input type="hidden" name="form_type" value="enquiry">
+                      <input type="hidden" name="src" value="floorplan-<?= e($pl['type']) ?>">
+                      <input type="hidden" name="config" value="<?= e($pl['type']) ?>">
+                      <input type="text" name="company" class="hidden" tabindex="-1" autocomplete="off" aria-hidden="true">
+
+                      <label for="fp-name-<?= $i ?>" class="sr-only">Full name</label>
+                      <input id="fp-name-<?= $i ?>" class="fld fld-l" type="text" name="name" placeholder="Full name" required autocomplete="name">
+
+                      <div class="grid grid-cols-[auto_1fr] gap-3 items-end">
+                        <span class="pb-2.5 text-ink-500 text-[15px] border-b border-ink/15">+91</span>
+                        <div>
+                          <label for="fp-phone-<?= $i ?>" class="sr-only">Mobile number</label>
+                          <input id="fp-phone-<?= $i ?>" class="fld fld-l" type="tel" name="phone" placeholder="Mobile number" required inputmode="numeric" autocomplete="tel">
+                        </div>
+                      </div>
+
+                      <button class="btn btn-gold h-11 rounded-full text-[13.5px] mt-1">
+                        View floor plan
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14m-6-7 7 7-7 7"/></svg>
+                      </button>
+                    </form>
+                  </div>
+                </div>
+              </div>
               <p class="text-center text-[11px] tracking-[.16em] uppercase text-ink-500 mt-5">Indicative schematic · not to scale</p>
             </div>
 
-            <div class="lg:col-span-5">
+            <div class="lg:col-span-5 min-w-0">
               <?php if ($pl['tag']): ?>
                 <span class="inline-block bg-gold/20 text-gold-700 text-[10.5px] font-bold uppercase tracking-[.16em] px-3 py-1.5 rounded-full mb-4"><?= e($pl['tag']) ?></span>
               <?php endif; ?>
               <h3 class="display text-[34px] leading-tight"><?= e($pl['type']) ?></h3>
 
-              <dl class="mt-6 divide-y divide-line border-y border-line">
+              <!-- Headline specs -->
+              <div class="grid grid-cols-3 gap-px bg-line mt-6 border border-line rounded-[3px] overflow-hidden">
                 <?php
-                $rows = [
-                  ['Carpet area',  $pl['carpet'] . ' sq.ft'],
-                  ['Orientation',  'Corner unit · 3-side open'],
-                  ['Ceiling',      "10'6\" clear height"],
-                  ['Deck',         'Full-width sun deck'],
-                  ['Starting at',  $pl['price']],
+                $specs = [
+                  [$pl['area'],  'Sq. Ft Area'],
+                  [$pl['beds'],  $pl['beds_label']],
+                  [$pl['baths'], $pl['baths_label']],
                 ];
-                foreach ($rows as $r): ?>
-                  <div class="flex justify-between gap-4 py-3.5">
-                    <dt class="text-[13px] text-ink-500"><?= e($r[0]) ?></dt>
-                    <dd class="text-[14px] font-semibold text-right"><?= e($r[1]) ?></dd>
+                foreach ($specs as $s): ?>
+                  <div class="bg-ivory px-3 py-5 text-center">
+                    <p class="display text-[28px] leading-none"><?= e($s[0]) ?></p>
+                    <p class="text-[11px] text-ink-500 mt-2 leading-snug"><?= e($s[1]) ?></p>
                   </div>
                 <?php endforeach; ?>
-              </dl>
+              </div>
+
+              <p class="mt-6 text-[13px] text-ink-500">Starting at</p>
+              <p class="display text-[34px] leading-none mt-1"><?= e($pl['price']) ?></p>
 
               <div class="mt-7 flex flex-wrap gap-3">
                 <button data-modal-open data-modal-config="<?= e($pl['type']) ?>" class="btn btn-ink h-11 px-6 rounded-full text-[13.5px]">Get detailed plan</button>
@@ -619,11 +630,8 @@ tailwind.config = {
       <p class="eyebrow text-gold-700 rv">03 — Price</p>
       <div class="rule w-20 mt-3.5 mb-6 rv"></div>
       <h2 class="display font-light text-[clamp(2rem,4.6vw,3.4rem)] leading-[1.03] tracking-tightest rv">
-        Pre-launch pricing,<br>published <em class="not-italic text-gold-600">openly.</em>
+        Launch pricing,<br>published <em class="not-italic text-gold-600">openly.</em>
       </h2>
-      <p class="mt-5 text-[15.5px] text-ink-500 leading-relaxed rv rv-d1">
-        No hidden floor-rise games. The rates below hold until the Tower&nbsp;C allotment closes — after which the published list price applies.
-      </p>
     </div>
 
     <div class="rv">
@@ -633,8 +641,8 @@ tailwind.config = {
           <thead>
             <tr class="text-left border-y border-ink">
               <th scope="col" class="py-4 pr-4 text-[11px] uppercase tracking-[.18em] font-bold">Configuration</th>
-              <th scope="col" class="py-4 px-4 text-[11px] uppercase tracking-[.18em] font-bold">Carpet area</th>
-              <th scope="col" class="py-4 px-4 text-[11px] uppercase tracking-[.18em] font-bold">Pre-launch price</th>
+              <th scope="col" class="py-4 px-4 text-[11px] uppercase tracking-[.18em] font-bold">Area</th>
+              <th scope="col" class="py-4 px-4 text-[11px] uppercase tracking-[.18em] font-bold">Launch price</th>
               <th scope="col" class="py-4 pl-4 text-right text-[11px] uppercase tracking-[.18em] font-bold">Availability</th>
             </tr>
           </thead>
@@ -645,7 +653,7 @@ tailwind.config = {
                   <span class="display text-[21px] font-normal"><?= e($pl['type']) ?></span>
                   <?php if ($pl['tag']): ?><span class="ml-3 align-middle inline-block bg-gold/20 text-gold-700 text-[9.5px] font-bold uppercase tracking-[.14em] px-2.5 py-1 rounded-full"><?= e($pl['tag']) ?></span><?php endif; ?>
                 </th>
-                <td class="py-6 px-4 text-[15px] text-ink-500"><?= e($pl['carpet']) ?> sq.ft</td>
+                <td class="py-6 px-4 text-[15px] text-ink-500"><?= e($pl['area']) ?> sq.ft</td>
                 <td class="py-6 px-4 text-[17px] font-semibold"><?= e($pl['price']) ?></td>
                 <td class="py-6 pl-4 text-right">
                   <button data-modal-open data-modal-config="<?= e($pl['type']) ?>" class="text-[13.5px] font-semibold text-ink border-b-2 border-gold hover:text-gold-700 transition-colors">Request cost sheet</button>
@@ -657,12 +665,11 @@ tailwind.config = {
       </div>
     </div>
 
-    <div class="grid sm:grid-cols-3 gap-5 mt-10">
+    <div class="grid sm:grid-cols-2 gap-5 mt-10">
       <?php
       $notes = [
-        ['Flexible payment plans', '10:80:10 construction-linked, or a subvention plan with no EMI until possession.'],
-        ['Home loans pre-approved', 'SBI, HDFC, ICICI, Axis and LIC HFL. Up to 80% funding, doorstep documentation.'],
-        ['What is extra', 'GST, stamp duty, registration, IFMS and club membership are charged at actuals.'],
+        ['Flexible payment plans', '30:70 construction-linked, or a subvention plan with no EMI until possession.'],
+        ['Home loans pre-approved', 'SBI, HDFC funding, doorstep documentation.'],
       ];
       foreach ($notes as $i => $n): ?>
         <div class="border-t-2 border-gold pt-5 rv rv-d<?= $i + 1 ?>">
@@ -672,21 +679,6 @@ tailwind.config = {
       <?php endforeach; ?>
     </div>
 
-    <!-- Inline conversion strip -->
-    <div class="relative overflow-hidden bg-ink text-ivory rounded-[3px] mt-14 rv">
-      <div class="absolute inset-0 grain"></div>
-      <div class="relative grid md:grid-cols-[1fr_auto] gap-8 items-center px-7 sm:px-12 py-10 sm:py-12">
-        <div>
-          <p class="eyebrow text-gold">Limited allotment</p>
-          <h3 class="display text-[clamp(1.5rem,3vw,2.2rem)] leading-tight mt-3">Only <span class="text-gold">38 homes</span> remain at pre-launch pricing.</h3>
-          <p class="text-[14.5px] text-ivory/60 mt-3 max-w-xl">Get the full cost sheet, payment plan and unit availability chart on WhatsApp in under two minutes.</p>
-        </div>
-        <div class="flex flex-wrap gap-3">
-          <button data-modal-open class="btn btn-gold h-12 px-7 rounded-full text-[14px]">Get cost sheet</button>
-          <a href="tel:+<?= e($b['phone_raw']) ?>" class="btn h-12 px-7 rounded-full text-[14px] border border-ivory/25 text-ivory hover:bg-ivory hover:text-ink">Call now</a>
-        </div>
-      </div>
-    </div>
   </div>
 </section>
 
@@ -703,7 +695,7 @@ tailwind.config = {
           Walk through it,<br><em class="not-italic text-gold">frame by frame.</em>
         </h2>
       </div>
-      <p class="text-[13px] text-ivory/45 rv rv-d1 max-w-xs">Click any image to enlarge. Renders are artistic impressions; finishes may vary by unit.</p>
+      <p class="text-[13px] text-ivory/45 rv rv-d1 max-w-xs"><?= e($C['gallery_note']) ?></p>
     </div>
 
     <div class="grid grid-cols-2 lg:grid-cols-4 auto-rows-[170px] sm:auto-rows-[210px] gap-3 sm:gap-4">
@@ -732,11 +724,11 @@ tailwind.config = {
         <p class="eyebrow text-gold-700 rv">05 — Amenities</p>
         <div class="rule w-20 mt-3.5 mb-6 rv"></div>
         <h2 class="display font-light text-[clamp(2rem,4.6vw,3.4rem)] leading-[1.03] tracking-tightest rv">
-          Forty-five reasons<br>to stay <em class="not-italic text-gold-600">home.</em>
+          Reasons<br>to stay <em class="not-italic text-gold-600">home.</em>
         </h2>
       </div>
       <p class="lg:col-span-5 text-[15px] text-ink-500 leading-relaxed rv rv-d1">
-        A 22,000 sq.ft clubhouse anchors the estate, wrapped by courts, gardens and water. Everything below is included — no separate club charge after the one-time membership.
+        A premium clubhouse anchors the estate, wrapped by courts, gardens and open green. Seven of the seventeen acres are left to landscape.
       </p>
     </div>
 
@@ -804,6 +796,7 @@ tailwind.config = {
         </figure>
       <?php endforeach; ?>
     </div>
+    <p class="text-[11.5px] text-ink-500/80 mt-4 leading-relaxed"><?= e($C['image_disclaimer']) ?></p>
   </div>
 </section>
 
@@ -815,37 +808,39 @@ tailwind.config = {
       <div class="lg:col-span-5">
         <p class="eyebrow text-gold-700 rv">06 — Location Advantages</p>
         <div class="rule w-20 mt-3.5 mb-6 rv"></div>
+        <?php $loc = $C['location']; ?>
         <h2 class="display font-light text-[clamp(2rem,4.6vw,3.4rem)] leading-[1.03] tracking-tightest rv">
-          On the expressway.<br>Not <em class="not-italic text-gold-600">near</em> it.
+          <?= e($loc['heading_a']) ?><br><em class="not-italic text-gold-600"><?= e($loc['heading_em']) ?></em>
         </h2>
         <p class="mt-6 text-[15.5px] text-ink-500 leading-relaxed max-w-lg rv rv-d1">
-          Sector 104 sits at the Delhi end of the Dwarka Expressway — the shortest run to the airport, the diplomatic enclave and the new convention district, with the Gurugram business core still under half an hour away.
+          <?= e($loc['intro']) ?>
         </p>
 
         <div class="mt-8 p-6 bg-ivory border border-line rounded-[3px] rv rv-d2">
-          <p class="eyebrow text-gold-700">Why it appreciates</p>
-          <p class="text-[14.5px] leading-relaxed text-ink-500 mt-3">
-            Dwarka Expressway corridor capital values have moved roughly <strong class="text-ink">2.4×</strong> since the elevated stretch opened, with the ISBT, metro extension and Yashobhoomi phase&nbsp;II still to land.
-          </p>
+          <p class="eyebrow text-gold-700"><?= e($loc['why_title']) ?></p>
+          <p class="text-[14.5px] leading-relaxed text-ink-500 mt-3"><?= e($loc['why']) ?></p>
         </div>
       </div>
 
-      <div class="lg:col-span-7">
-        <div class="grid sm:grid-cols-3 gap-8 sm:gap-6">
-          <?php $li = 0; foreach ($C['location'] as $cat => $rows): ?>
-            <div class="rv rv-d<?= $li + 1 ?>">
-              <h3 class="display text-[21px] pb-3 border-b-2 border-gold"><?= e($cat) ?></h3>
-              <ul class="mt-1">
-                <?php foreach ($rows as $r): ?>
-                  <li class="flex items-baseline justify-between gap-3 py-3 border-b border-line">
-                    <span class="text-[13.5px] leading-snug"><?= e($r[0]) ?></span>
-                    <span class="text-[12.5px] font-bold tabular-nums text-gold-700 whitespace-nowrap"><?= e($r[1]) ?></span>
-                  </li>
-                <?php endforeach; ?>
-              </ul>
-            </div>
-          <?php $li++; endforeach; ?>
-        </div>
+      <div class="lg:col-span-7 min-w-0 grid sm:grid-cols-2 gap-x-10 gap-y-10">
+        <?php
+        $locLists = [
+          [$loc['list_title'],    $loc['connectivity']],
+          [$loc['schools_title'], $loc['schools']],
+        ];
+        foreach ($locLists as $li => $block): ?>
+          <div class="min-w-0">
+            <h3 class="display text-[22px] pb-4 border-b-2 border-gold rv"><?= e($block[0]) ?></h3>
+            <ul>
+              <?php foreach ($block[1] as $k => $item): ?>
+                <li class="flex items-start gap-4 py-[15px] border-b border-line rv rv-d<?= min(4, $k % 4 + 1) ?>">
+                  <span class="text-[10.5px] tabular-nums text-gold-600 font-bold w-6 shrink-0 mt-[3px]"><?= str_pad((string)($k + 1), 2, '0', STR_PAD_LEFT) ?></span>
+                  <span class="text-[14.5px] leading-snug"><?= e($item) ?></span>
+                </li>
+              <?php endforeach; ?>
+            </ul>
+          </div>
+        <?php endforeach; ?>
       </div>
     </div>
   </div>
@@ -865,10 +860,10 @@ tailwind.config = {
     <div class="bg-ink text-ivory p-8 sm:p-12 flex flex-col justify-center relative">
       <div class="absolute inset-0 grain"></div>
       <div class="relative">
-        <p class="eyebrow text-gold">07 — Site address</p>
-        <h2 class="display text-[30px] leading-tight mt-3">Visit the experience centre</h2>
+        <p class="eyebrow text-gold">07 — Office address</p>
+        <h2 class="display text-[30px] leading-tight mt-3">Talk to us in person</h2>
         <address class="not-italic text-[15px] text-ivory/65 mt-5 leading-relaxed">
-          <?= e($p['name']) ?><br><?= e($b['address']) ?>
+          <?= e($C['office']['name']) ?><br><?= e($C['office']['address']) ?>
         </address>
         <dl class="mt-7 space-y-3 text-[14px]">
           <div class="flex gap-3"><dt class="text-ivory/45 w-20 shrink-0">Open</dt><dd>All days · 10:00 – 19:00</dd></div>
@@ -876,180 +871,15 @@ tailwind.config = {
           <div class="flex gap-3"><dt class="text-ivory/45 w-20 shrink-0">Email</dt><dd><a class="hover:text-gold" href="mailto:<?= e($b['email']) ?>"><?= e($b['email']) ?></a></dd></div>
         </dl>
         <div class="flex flex-wrap gap-3 mt-8">
-          <a href="https://www.google.com/maps/dir/?api=1&destination=<?= e($p['map_query']) ?>" target="_blank" rel="noopener" class="btn btn-gold h-11 px-6 rounded-full text-[13.5px]">Get directions</a>
-          <button data-modal-open data-modal-src="site-visit" class="btn h-11 px-6 rounded-full text-[13.5px] border border-ivory/25 text-ivory hover:bg-ivory hover:text-ink">Book a site visit</button>
+          <button data-modal-open data-modal-src="site-visit" class="btn btn-gold h-11 px-6 rounded-full text-[13.5px]">Book a site visit</button>
+          <a href="https://www.google.com/maps/dir/?api=1&destination=<?= e($p['map_query']) ?>" target="_blank" rel="noopener"
+             class="btn h-11 px-6 rounded-full text-[13.5px] border border-ivory/25 text-ivory hover:bg-ivory hover:text-ink">Directions to site</a>
+          <a href="https://www.google.com/maps/dir/?api=1&destination=<?= e($C['office']['map_query']) ?>" target="_blank" rel="noopener"
+             class="btn h-11 px-6 rounded-full text-[13.5px] border border-ivory/25 text-ivory hover:bg-ivory hover:text-ink">Directions to office</a>
         </div>
         <p class="text-[12px] text-ivory/40 mt-6">Complimentary chauffeur pick-up &amp; drop within Delhi NCR for scheduled visits.</p>
       </div>
     </div>
-  </div>
-</section>
-
-<!-- ═════════════════════════════════════════════════ BROCHURE ══ -->
-<section id="brochure" class="scroll-mt-20 relative overflow-hidden py-20 sm:py-28">
-  <img src="<?= e(u('skyline')) ?>" alt="" aria-hidden="true" loading="lazy"
-       class="absolute inset-0 w-full h-full object-cover">
-  <div class="absolute inset-0 bg-ink/90"></div>
-  <div class="absolute inset-0 grain"></div>
-
-  <div class="relative max-w-8xl mx-auto px-5 sm:px-8">
-    <div class="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-
-      <div class="text-ivory">
-        <p class="eyebrow text-gold rv">08 — Brochure</p>
-        <div class="rule w-20 mt-3.5 mb-6 rv"></div>
-        <h2 class="display font-light text-[clamp(2rem,4.6vw,3.4rem)] leading-[1.03] tracking-tightest rv">
-          The complete<br><em class="not-italic text-gold">e-brochure.</em>
-        </h2>
-        <p class="mt-6 text-[15.5px] text-ivory/65 leading-relaxed max-w-lg rv rv-d1">
-          68 pages: master plan, every unit plan with dimensions, specification schedule, amenity map, payment plans and the full HARERA disclosure set.
-        </p>
-        <ul class="mt-8 grid sm:grid-cols-2 gap-x-8 gap-y-3 rv rv-d2">
-          <?php foreach (['Master & tower plans','Dimensioned unit plans','Specification schedule','Payment & loan options','Amenity master map','HARERA disclosures'] as $it): ?>
-            <li class="flex items-center gap-3 text-[14px] text-ivory/80">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#F5B301" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="shrink-0"><path d="m5 13 4 4L19 7"/></svg>
-              <?= e($it) ?>
-            </li>
-          <?php endforeach; ?>
-        </ul>
-      </div>
-
-      <div class="rv rv-d1">
-        <div class="bg-ivory rounded-[3px] p-7 sm:p-9 shadow-2xl">
-          <?php if ($FLASH && $FLASH['type'] === 'brochure'): ?>
-            <div class="mb-5 rounded-sm px-4 py-3 text-[13px] <?= $FLASH['ok'] ? 'bg-gold/20 text-gold-700 border border-gold/40' : 'bg-red-50 text-red-700 border border-red-200' ?>">
-              <?= e($FLASH['msg']) ?>
-            </div>
-            <?php if ($FLASH['ok']): ?>
-              <a href="assets/coming-keys-the-reserve-brochure.pdf" download class="btn btn-ink w-full h-12 rounded-full text-[14px]">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 3v12m0 0 4-4m-4 4-4-4M4 19h16"/></svg>
-                Download the PDF
-              </a>
-            <?php endif; ?>
-          <?php endif; ?>
-
-          <p class="eyebrow text-gold-700">Free download</p>
-          <h3 class="display text-[27px] leading-tight mt-2.5">Send me the brochure</h3>
-          <p class="text-[13px] text-ink-500 mt-2">Instant download link, plus a copy on WhatsApp.</p>
-
-          <form method="post" class="mt-6 grid gap-5" novalidate>
-            <input type="hidden" name="form_type" value="brochure">
-            <input type="hidden" name="src" value="brochure-section">
-            <input type="text" name="company" class="hidden" tabindex="-1" autocomplete="off" aria-hidden="true">
-
-            <label for="b-name" class="sr-only">Full name</label>
-            <input id="b-name" class="fld fld-l" type="text" name="name" placeholder="Full name" required autocomplete="name">
-
-            <div class="grid grid-cols-[auto_1fr] gap-3 items-end">
-              <span class="pb-2.5 text-ink-500 text-[15px] border-b border-ink/15">+91</span>
-              <div>
-                <label for="b-phone" class="sr-only">Mobile number</label>
-                <input id="b-phone" class="fld fld-l" type="tel" name="phone" placeholder="Mobile number" required inputmode="numeric" autocomplete="tel">
-              </div>
-            </div>
-
-            <label for="b-email" class="sr-only">Email</label>
-            <input id="b-email" class="fld fld-l" type="email" name="email" placeholder="Email address" autocomplete="email">
-
-            <button class="btn btn-gold h-12 rounded-full text-[14px] mt-1">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 3v12m0 0 4-4m-4 4-4-4M4 19h16"/></svg>
-              Download Brochure
-            </button>
-            <p class="text-[11px] text-ink-500/80 leading-relaxed">We send the link once. No newsletters, ever.</p>
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ═══════════════════════════════════════════════ TESTIMONIALS ══ -->
-<section class="py-20 sm:py-28">
-  <div class="max-w-8xl mx-auto px-5 sm:px-8">
-    <div class="max-w-2xl mb-12">
-      <p class="eyebrow text-gold-700 rv">Owners</p>
-      <div class="rule w-20 mt-3.5 mb-6 rv"></div>
-      <h2 class="display font-light text-[clamp(1.8rem,4vw,3rem)] leading-[1.05] tracking-tightest rv">
-        The people who<br>already said <em class="not-italic text-gold-600">yes.</em>
-      </h2>
-    </div>
-
-    <div class="grid md:grid-cols-3 gap-5">
-      <?php
-      $tst = [
-        ['I compared six projects on the expressway. Nothing else gave me a corner unit with this much light at this price. The team sent the cost sheet in ten minutes and never once chased me.', 'Ananya Rao', 'Booked a 3 BHK, Tower B'],
-        ['What sold me was the site visit — the podium is genuinely car-free and the pool is not a marketing render. My parents live with us, and the senior court mattered.', 'Vikram Sethi', 'Booked a 4 BHK Duplex'],
-        ['Straightforward pricing, HARERA papers shared upfront, and the loan was sanctioned in four days through SBI. Easiest property purchase I have made.', 'Meher Kapadia', 'Booked a 3 BHK + Servant'],
-      ];
-      foreach ($tst as $i => $t): ?>
-        <figure class="bg-ivory-200 border border-line rounded-[3px] p-7 flex flex-col rv rv-d<?= $i + 1 ?>">
-          <div class="flex gap-1 text-gold mb-5" aria-label="5 out of 5 stars">
-            <?php for ($s = 0; $s < 5; $s++): ?>
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.6 7 .8-5.2 4.8 1.4 7L12 17.8 5.8 21.2l1.4-7L2 9.4l7-.8Z"/></svg>
-            <?php endfor; ?>
-          </div>
-          <blockquote class="display text-[18px] leading-[1.5] font-light flex-1">“<?= e($t[0]) ?>”</blockquote>
-          <figcaption class="mt-6 pt-5 border-t border-line">
-            <p class="font-semibold text-[14px]"><?= e($t[1]) ?></p>
-            <p class="text-[12.5px] text-ink-500 mt-0.5"><?= e($t[2]) ?></p>
-          </figcaption>
-        </figure>
-      <?php endforeach; ?>
-    </div>
-  </div>
-</section>
-
-<!-- ═══════════════════════════════════════════════════════ FAQ ══ -->
-<section id="faq" class="scroll-mt-20 bg-ivory-200 border-y border-line py-20 sm:py-28">
-  <div class="max-w-8xl mx-auto px-5 sm:px-8">
-    <div class="grid lg:grid-cols-12 gap-10 lg:gap-16">
-
-      <div class="lg:col-span-4">
-        <p class="eyebrow text-gold-700 rv">FAQ</p>
-        <div class="rule w-20 mt-3.5 mb-6 rv"></div>
-        <h2 class="display font-light text-[clamp(1.8rem,4vw,2.8rem)] leading-[1.05] tracking-tightest rv">
-          Answers,<br>before you <em class="not-italic text-gold-600">ask.</em>
-        </h2>
-        <p class="mt-6 text-[14.5px] text-ink-500 leading-relaxed rv rv-d1">
-          Something not covered here? Call <a href="tel:+<?= e($b['phone_raw']) ?>" class="text-ink font-semibold border-b border-gold"><?= e($b['phone']) ?></a> — a real person picks up.
-        </p>
-      </div>
-
-      <div class="lg:col-span-8">
-        <?php foreach ($C['faq'] as $i => $f): ?>
-          <details class="group border-b border-line rv rv-d<?= min(4, $i % 4 + 1) ?>" <?= $i === 0 ? 'open' : '' ?>>
-            <summary class="flex items-start justify-between gap-6 py-6 select-none">
-              <h3 class="display text-[18.5px] sm:text-[21px] font-normal leading-snug pr-4"><?= e($f[0]) ?></h3>
-              <span class="faq-ico shrink-0 mt-1 w-8 h-8 grid place-items-center rounded-full border border-line group-hover:border-gold group-hover:bg-gold transition-all duration-300">
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
-              </span>
-            </summary>
-            <p class="pb-7 -mt-1 pr-14 text-[15px] leading-relaxed text-ink-500"><?= e($f[1]) ?></p>
-          </details>
-        <?php endforeach; ?>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ═══════════════════════════════════════════════ FINAL CTA ══ -->
-<section class="relative overflow-hidden bg-ink text-ivory py-20 sm:py-28">
-  <div class="absolute inset-0 grain"></div>
-  <div class="absolute -top-40 -right-40 w-[520px] h-[520px] rounded-full bg-gold/12 blur-[120px]"></div>
-
-  <div class="relative max-w-8xl mx-auto px-5 sm:px-8 text-center">
-    <p class="eyebrow text-gold rv">Next step</p>
-    <h2 class="display font-light text-[clamp(2.2rem,6vw,4.6rem)] leading-[1] tracking-tightest mt-5 rv">
-      Come see it before<br>the <em class="not-italic text-gold">good ones go.</em>
-    </h2>
-    <p class="mt-7 text-[16px] text-ivory/60 max-w-xl mx-auto leading-relaxed rv rv-d1">
-      Book a guided site visit this week and hold your preferred unit for 48 hours at pre-launch pricing — no payment required.
-    </p>
-    <div class="mt-10 flex flex-wrap justify-center gap-3.5 rv rv-d2">
-      <button data-modal-open data-modal-src="final-cta" class="btn btn-gold h-13 px-8 py-4 rounded-full text-[14.5px]">Book my site visit</button>
-      <a href="https://wa.me/<?= e($b['whatsapp']) ?>" target="_blank" rel="noopener" class="btn h-13 px-8 py-4 rounded-full text-[14.5px] border border-ivory/25 text-ivory hover:bg-ivory hover:text-ink">Chat on WhatsApp</a>
-    </div>
-    <p class="mt-8 text-[12px] text-ivory/35 rv rv-d3">Typical response time: under 30 minutes, 10 AM – 8 PM IST</p>
   </div>
 </section>
 
@@ -1063,7 +893,7 @@ tailwind.config = {
       <div class="md:col-span-5">
         <img src="<?= e(logo()) ?>" alt="<?= e($b['name']) ?> — <?= e($b['tagline']) ?>"
              width="393" height="103" class="h-11 w-auto" loading="lazy">
-        <p class="mt-5 text-[14px] leading-relaxed max-w-sm"><?= e($p['name']) ?> — a 14.2-acre gated estate of 3 &amp; 4 BHK sky residences on the Dwarka Expressway, Gurugram.</p>
+        <p class="mt-5 text-[14px] leading-relaxed max-w-sm"><?= e($p['name']) ?> — a 17-acre gated estate of 3 &amp; 3.5 BHK residences on the Dwarka Expressway, Gurugram.</p>
         <div class="flex gap-3 mt-6">
           <?php
           $soc = [
@@ -1085,7 +915,6 @@ tailwind.config = {
           <?php foreach ($navItems as $id => $label): ?>
             <li><a href="#<?= e($id) ?>" class="hover:text-gold transition-colors"><?= e($label) ?></a></li>
           <?php endforeach; ?>
-          <li><a href="#faq" class="hover:text-gold transition-colors">FAQ</a></li>
         </ul>
       </nav>
 
@@ -1149,6 +978,7 @@ tailwind.config = {
               <li class="flex gap-2.5"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#F5B301" stroke-width="2.6" stroke-linecap="round" class="shrink-0 mt-0.5"><path d="m5 13 4 4L19 7"/></svg><?= e($x) ?></li>
             <?php endforeach; ?>
           </ul>
+          <p class="mt-5 text-[10.5px] text-ivory/40 leading-relaxed"><?= e($C['image_disclaimer']) ?></p>
         </div>
       </div>
 
@@ -1164,6 +994,9 @@ tailwind.config = {
         <form method="post" class="mt-6 grid gap-5" novalidate>
           <input type="hidden" name="form_type" value="enquiry">
           <input type="hidden" name="src" id="modal-src" value="modal">
+          <!-- Set when the visitor opens the modal from a specific plan or price
+               row, so the lead still records what they were looking at. -->
+          <input type="hidden" name="config" id="m-cfg" value="">
           <input type="text" name="company" class="hidden" tabindex="-1" autocomplete="off" aria-hidden="true">
 
           <label for="m-name" class="sr-only">Full name</label>
@@ -1179,14 +1012,6 @@ tailwind.config = {
 
           <label for="m-email" class="sr-only">Email</label>
           <input id="m-email" class="fld fld-l" type="email" name="email" placeholder="Email (optional)" autocomplete="email">
-
-          <label for="m-cfg" class="sr-only">Preferred configuration</label>
-          <select id="m-cfg" name="config" class="fld fld-l">
-            <option value="">Preferred configuration</option>
-            <?php foreach ($C['plans'] as $pl): ?>
-              <option value="<?= e($pl['type']) ?>"><?= e($pl['type']) ?> · <?= e($pl['carpet']) ?> sq.ft</option>
-            <?php endforeach; ?>
-          </select>
 
           <button class="btn btn-gold h-12 rounded-full text-[14px] mt-1">
             Request a callback
@@ -1211,8 +1036,11 @@ tailwind.config = {
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m9 5 7 7-7 7"/></svg>
   </button>
   <figure class="h-full flex flex-col items-center justify-center p-6 sm:p-14 gap-4">
-    <img id="lb-img" src="" alt="" class="max-h-[80vh] max-w-full object-contain rounded-[3px]">
-    <figcaption id="lb-cap" class="text-ivory/70 text-[13px] tracking-wide"></figcaption>
+    <img id="lb-img" src="" alt="" class="max-h-[76vh] max-w-full object-contain rounded-[3px]">
+    <figcaption class="text-center">
+      <span id="lb-cap" class="block text-ivory/70 text-[13px] tracking-wide"></span>
+      <span class="block text-ivory/35 text-[11px] mt-1.5"><?= e($C['image_disclaimer']) ?></span>
+    </figcaption>
   </figure>
 </div>
 
@@ -1371,6 +1199,30 @@ tailwind.config = {
       if (ev.key === 'ArrowLeft')  show(idx - 1);
     }
   });
+
+  /* ---------- Floor-plan gate ----------
+     Reveal the plan as soon as the visitor submits, so the promise is kept
+     immediately rather than after a page round-trip. The form still posts
+     (PHP locally, Netlify Forms in production) — this only handles the UI. */
+  $$('.js-plan-gate form').forEach(form => {
+    form.addEventListener('submit', () => {
+      const wrap = form.closest('.relative');
+      if (!wrap) return;
+      const art  = $('.js-plan-art', wrap);
+      const gate = $('.js-plan-gate', wrap);
+      if (art) { art.style.filter = 'none'; art.style.transform = 'none'; }
+      if (gate) { gate.style.opacity = '0'; gate.style.pointerEvents = 'none'; }
+      try { sessionStorage.setItem('ck_plan_unlocked', '1'); } catch (err) { /* private mode */ }
+    });
+  });
+
+  /* Stay unlocked for the rest of the session, including the other plan tab. */
+  try {
+    if (sessionStorage.getItem('ck_plan_unlocked')) {
+      $$('.js-plan-art').forEach(a => { a.style.filter = 'none'; a.style.transform = 'none'; });
+      $$('.js-plan-gate').forEach(g => g.remove());
+    }
+  } catch (err) { /* private mode */ }
 
   /* ---------- Phone input hygiene ---------- */
   $$('input[type="tel"]').forEach(i => i.addEventListener('input', () => {

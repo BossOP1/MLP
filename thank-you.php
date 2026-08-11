@@ -61,12 +61,12 @@ tailwind.config = { theme: { extend: {
     </p>
 
     <div class="mt-10 flex flex-wrap justify-center gap-3.5">
-      <a href="assets/coming-keys-the-reserve-brochure.pdf" download class="btn btn-gold h-12 px-7 rounded-full text-[14px]">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 3v12m0 0 4-4m-4 4-4-4M4 19h16"/></svg>
-        Download the brochure
+      <a href="https://wa.me/<?= e($b['whatsapp']) ?>" target="_blank" rel="noopener" class="btn btn-gold h-12 px-7 rounded-full text-[14px]">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15L2 22l5.2-1.4A10 10 0 1 0 12 2Zm5.4 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-1.7-.1a13 13 0 0 1-5.6-4.9c-.4-.6-1-1.5-1-2.9 0-1.3.7-2 1-2.3.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .6l-.4.5-.3.4c-.1.1-.2.3 0 .6.2.3.7 1.2 1.5 1.9 1 .9 1.8 1.2 2.1 1.3.2.1.4.1.6-.1l.8-1c.2-.2.3-.2.6-.1l2 1c.2.1.4.2.4.3.1.2.1.8-.1 1.4Z"/></svg>
+        Chat on WhatsApp
       </a>
-      <a href="https://wa.me/<?= e($b['whatsapp']) ?>" target="_blank" rel="noopener"
-         class="btn h-12 px-7 rounded-full text-[14px] border border-ivory/25 hover:bg-ivory hover:text-ink">Chat on WhatsApp</a>
+      <a href="tel:+<?= e($b['phone_raw']) ?>"
+         class="btn h-12 px-7 rounded-full text-[14px] border border-ivory/25 hover:bg-ivory hover:text-ink">Call <?= e($b['phone']) ?></a>
     </div>
 
     <div class="mt-12 pt-8 border-t border-white/10 grid sm:grid-cols-3 gap-6 text-left">
