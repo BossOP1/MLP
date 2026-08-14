@@ -70,7 +70,7 @@ function copyDir(string $src, string $dst): int
 {
     // Source-only artefacts: the original logo supplied by the client is kept
     // in the repo but there is no reason to publish it alongside the PNG.
-    $skipPatterns = ['/^WhatsApp Image/i', '/\.psd$/i', '/\.ai$/i', '/^\./'];
+    $skipPatterns = ['/^WhatsApp Image/i', '/^logo\.jpe?g$/i', '/\.psd$/i', '/\.ai$/i', '/^\./'];
 
     if (!is_dir($src)) {
         return 0;
@@ -228,7 +228,7 @@ $checks = [
     'forms wired to Netlify' => substr_count((string)$index, 'data-netlify="true"') > 0,
     'form-name fields set'   => substr_count((string)$index, 'name="form-name"') === $totalForms,
     'hero image present'     => is_file('dist/assets/img/hero.jpg'),
-    'logo present'           => is_file('dist/assets/img/logo/coming-keys.png'),
+    'logo present'           => is_file('dist/assets/img/logo/ck-technologies.png'),
     'structured data intact' => str_contains((string)$index, 'application/ld+json'),
 ];
 

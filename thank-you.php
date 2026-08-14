@@ -41,7 +41,7 @@ tailwind.config = { theme: { extend: {
 
 <header class="px-5 sm:px-8 py-6">
   <a href="index.html" aria-label="<?= e($b['name']) ?> — home">
-    <img src="<?= e(logo()) ?>" alt="<?= e($b['name']) ?> — <?= e($b['tagline']) ?>" width="393" height="103" class="h-10 w-auto">
+    <img src="<?= e(logo()) ?>" alt="<?= e($b['legal_name']) ?> — <?= e($b['name']) ?>" width="560" height="317" class="h-14 w-auto">
   </a>
 </header>
 

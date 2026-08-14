@@ -79,7 +79,7 @@ $b = $C['brand']; $p = $C['project']; $seo = $C['seo'];
 <meta name="twitter:image" content="<?= e($seo['og']) ?>">
 
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%230E0E10'/><path d='M5 25V14l5.5-3.2V25zM12 25V8l7-4.5V25zM20.5 25v-9.5L27 19v6z' fill='%23F5B301'/></svg>">
-<link rel="apple-touch-icon" href="assets/img/logo/coming-keys.png">
+<link rel="apple-touch-icon" href="assets/img/logo/ck-technologies.png">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -275,8 +275,8 @@ tailwind.config = {
 
       <!-- Logo -->
       <a href="#top" class="flex items-center gap-3.5 shrink-0" aria-label="<?= e($b['name']) ?> — home">
-        <img src="<?= e(logo()) ?>" alt="<?= e($b['name']) ?>"
-             width="393" height="103" class="h-9 sm:h-10 w-auto">
+        <img src="<?= e(logo()) ?>" alt="<?= e($b['legal_name']) ?> — <?= e($b['name']) ?>"
+             width="560" height="317" class="h-11 sm:h-[52px] w-auto">
       </a>
 
       <!-- Desktop nav -->
@@ -928,8 +928,8 @@ tailwind.config = {
 
       <!-- Operator -->
       <div class="md:col-span-4">
-        <img src="<?= e(logo()) ?>" alt="<?= e($b['name']) ?>"
-             width="393" height="103" class="h-11 w-auto" loading="lazy">
+        <img src="<?= e(logo()) ?>" alt="<?= e($b['legal_name']) ?> — <?= e($b['name']) ?>"
+             width="560" height="317" class="h-16 w-auto" loading="lazy">
         <p class="mt-5 text-[14px] leading-relaxed max-w-sm"><?= e($p['name']) ?>, a 17-acre gated estate of 3 &amp; 3.5 BHK residences on the Dwarka Expressway, Gurugram.</p>
 
         <p class="eyebrow text-ivory mt-8 mb-4">Company Details</p>

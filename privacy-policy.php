@@ -40,7 +40,7 @@ tailwind.config = { theme: { extend: {
 <header class="bg-ink">
   <div class="max-w-8xl mx-auto px-5 sm:px-8 h-[68px] flex items-center justify-between gap-6">
     <a href="index.php" aria-label="<?= e($b['name']) ?> — home">
-      <img src="<?= e(logo()) ?>" alt="<?= e($b['name']) ?>" width="393" height="103" class="h-9 sm:h-10 w-auto">
+      <img src="<?= e(logo()) ?>" alt="<?= e($b['legal_name']) ?> — <?= e($b['name']) ?>" width="560" height="317" class="h-11 sm:h-[52px] w-auto">
     </a>
     <a href="index.php" class="text-[13.5px] font-semibold text-ivory/80 hover:text-gold transition-colors">← Back to the project</a>
   </div>

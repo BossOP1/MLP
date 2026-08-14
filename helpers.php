@@ -38,7 +38,7 @@ function consent_note(array $C, bool $dark = false): string {
 
 /** Brand logo — transparent PNG, cache-busted the same way. */
 function logo() {
-    $rel   = 'assets/img/logo/coming-keys.png';
+    $rel   = 'assets/img/logo/ck-technologies.png';
     $abs   = __DIR__ . '/' . $rel;
     $stamp = is_file($abs) ? filemtime($abs) : 0;
     return $rel . ($stamp ? '?v=' . $stamp : '');
