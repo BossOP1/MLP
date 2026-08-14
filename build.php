@@ -29,8 +29,9 @@ $_SERVER['HTTPS']          = 'on';
 // Pages to build (source PHP file => output HTML file).
 // Missing files are skipped with a warning rather than failing the build.
 $pages = [
-    'index.php'     => 'index.html',
-    'thank-you.php' => 'thank-you.html',
+    'index.php'          => 'index.html',
+    'thank-you.php'      => 'thank-you.html',
+    'privacy-policy.php' => 'privacy-policy.html',
 ];
 
 // Folders copied wholesale into dist/.
@@ -121,7 +122,7 @@ function netlifyForms(string $html, int &$converted): string
             $type = preg_match('/name=["\']form_type["\']\s+value=["\']([^"\']+)["\']/i', $body, $t)
                 ? $t[1]
                 : 'enquiry';
-            $formName = 'coming-keys-' . $type;
+            $formName = 'gpe-' . $type;
 
             // Preserve class / novalidate, drop attributes we are about to
             // re-emit — otherwise the tag ends up with two method attributes.

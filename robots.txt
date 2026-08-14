@@ -1,5 +1,6 @@
 User-agent: *
 Allow: /
 Disallow: /thank-you.html
+Disallow: /privacy-policy.html
 
-Sitemap: https://www.comingkeys.com/sitemap.xml
+Sitemap: https://www.gurgaonpropertyexperts.com/sitemap.xml

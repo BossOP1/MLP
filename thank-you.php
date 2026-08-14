@@ -13,7 +13,7 @@ $b = $C['brand']; $p = $C['project'];
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Thank you — <?= e($p['name']) ?></title>
-<meta name="description" content="Your request has been received. A senior relationship manager from Coming Keys will call you within 30 minutes.">
+<meta name="description" content="Your request has been received. A senior relationship manager will call you within 30 minutes.">
 <meta name="robots" content="noindex, follow">
 <meta name="theme-color" content="#0E0E10">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%230E0E10'/><path d='M5 25V14l5.5-3.2V25zM12 25V8l7-4.5V25zM20.5 25v-9.5L27 19v6z' fill='%23F5B301'/></svg>">

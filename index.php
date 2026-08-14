@@ -45,6 +45,7 @@ $navItems = [
     'amenities' => 'Amenities',
     'location'  => 'Location Advantages',
     'map'       => 'Map',
+    'faq'       => 'FAQ',
 ];
 
 $b = $C['brand']; $p = $C['project']; $seo = $C['seo'];
@@ -238,6 +239,14 @@ tailwind.config = {
       ?>]
     },
     {
+      "@type":"FAQPage",
+      "mainEntity":[<?php
+        $fq = [];
+        foreach ($C['faq'] as $f) $fq[] = '{"@type":"Question","name":"'.e($f[0]).'","acceptedAnswer":{"@type":"Answer","text":"'.e($f[1]).'"}}';
+        echo implode(',', $fq);
+      ?>]
+    },
+    {
       "@type":"BreadcrumbList",
       "itemListElement":[
         {"@type":"ListItem","position":1,"name":"Home","item":"<?= e($seo['url']) ?>"},
@@ -253,10 +262,9 @@ tailwind.config = {
 <body class="bg-ivory text-ink font-sans antialiased">
 
 <!-- ══════════════════════════════════════════════ Announcement ══ -->
-<div class="bg-ink text-ivory/85 text-[12px] tracking-wide">
-  <div class="max-w-8xl mx-auto px-5 sm:px-8 h-9 flex items-center justify-center gap-2 text-center">
-    <span class="w-1.5 h-1.5 rounded-full bg-gold animate-pulse shrink-0"></span>
-    <span><strong class="text-gold font-semibold">Launch pricing</strong> ends this month · New inventory released · <span class="hidden sm:inline">Assured site-visit pick-up across Delhi NCR</span></span>
+<div class="bg-ink text-ivory/70 text-[11px] leading-relaxed">
+  <div class="max-w-8xl mx-auto px-5 sm:px-8 py-2.5 text-center">
+    <?= e($C['notices']['ticker']) ?>
   </div>
 </div>
 
@@ -267,10 +275,8 @@ tailwind.config = {
 
       <!-- Logo -->
       <a href="#top" class="flex items-center gap-3.5 shrink-0" aria-label="<?= e($b['name']) ?> — home">
-        <img src="<?= e(logo()) ?>" alt="<?= e($b['name']) ?> — <?= e($b['tagline']) ?>"
+        <img src="<?= e(logo()) ?>" alt="<?= e($b['name']) ?>"
              width="393" height="103" class="h-9 sm:h-10 w-auto">
-        <span class="hidden xl:block h-7 w-px bg-ivory/20"></span>
-        <span class="hidden xl:block text-[9.5px] tracking-[.26em] uppercase text-gold/90 font-semibold leading-tight">The<br>Reserve</span>
       </a>
 
       <!-- Desktop nav -->
@@ -310,7 +316,7 @@ tailwind.config = {
 <!-- ════════════════════════════════════════════════════ HERO ══ -->
 <section class="relative -mt-[68px] min-h-[100svh] flex items-end overflow-hidden bg-ink">
   <img src="<?= e(u('hero')) ?>"
-       alt="Coming Keys — The Reserve, luxury residential towers on Dwarka Expressway, Gurugram"
+       alt="Indiabulls Sector 104 — residential towers on Dwarka Expressway, Gurugram"
        class="absolute inset-0 w-full h-full object-cover" fetchpriority="high" width="1800" height="1200">
   <div class="absolute inset-0 bg-gradient-to-t from-ink via-ink/70 to-ink/45"></div>
   <div class="absolute inset-0 bg-gradient-to-r from-ink/85 via-ink/20 to-transparent"></div>
@@ -355,14 +361,14 @@ tailwind.config = {
             View Layout Plans
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14m-6-7 7 7-7 7"/></svg>
           </a>
-          <a href="https://wa.me/<?= e($b['whatsapp']) ?>?text=<?= rawurlencode('Hi, I would like details for Coming Keys — The Reserve.') ?>" target="_blank" rel="noopener"
+          <a href="https://wa.me/<?= e($b['whatsapp']) ?>?text=<?= rawurlencode('Hi, I would like details for Indiabulls Sector 104, Dwarka Expressway.') ?>" target="_blank" rel="noopener"
              class="btn h-12 px-7 rounded-full text-[14px] border border-ivory/25 text-ivory hover:bg-ivory hover:text-ink">
             <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15L2 22l5.2-1.4A10 10 0 1 0 12 2Zm5.4 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-1.7-.1a13 13 0 0 1-5.6-4.9c-.4-.6-1-1.5-1-2.9 0-1.3.7-2 1-2.3.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .6l-.4.5-.3.4c-.1.1-.2.3 0 .6.2.3.7 1.2 1.5 1.9 1 .9 1.8 1.2 2.1 1.3.2.1.4.1.6-.1l.8-1c.2-.2.3-.2.6-.1l2 1c.2.1.4.2.4.3.1.2.1.8-.1 1.4Z"/></svg>
             WhatsApp
           </a>
         </div>
 
-        <p class="mt-7 text-[11px] text-ivory/35 leading-relaxed rv in rv-d4"><?= e($C['image_disclaimer']) ?></p>
+        <p class="mt-7 text-[11px] text-ivory/35 leading-relaxed rv in rv-d4"><?= e($C['notices']['image']) ?></p>
       </div>
 
       <!-- Hero lead form -->
@@ -405,10 +411,7 @@ tailwind.config = {
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14m-6-7 7 7-7 7"/></svg>
             </button>
 
-            <p class="flex items-start gap-2 text-[11px] leading-relaxed text-ivory/40">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="mt-[2px] shrink-0 text-gold"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/></svg>
-              Your details stay private. By submitting you authorise us to contact you regarding this project.
-            </p>
+            <?= consent_note($C, true) ?>
           </form>
         </div>
       </div>
@@ -444,7 +447,7 @@ tailwind.config = {
           Seventeen acres<br>designed for<br><em class="not-italic text-gold-600">elevated living.</em>
         </h2>
         <div class="mt-7 space-y-5 text-[15.5px] leading-relaxed text-ink-500 max-w-lg rv rv-d1">
-          <p>Indiabulls Heights brings together spacious luxury residences, landscaped surroundings and a premium lifestyle on Dwarka Expressway — creating a home designed for families who value space, comfort and connectivity.</p>
+          <p>Indiabulls brings together spacious luxury residences, landscaped surroundings and a premium lifestyle on Dwarka Expressway — creating a home designed for families who value space, comfort and connectivity.</p>
         </div>
 
         <div class="mt-9 grid grid-cols-2 gap-x-8 gap-y-6 max-w-md rv rv-d2">
@@ -472,7 +475,7 @@ tailwind.config = {
       <div class="lg:col-span-7">
         <div class="grid grid-cols-12 gap-4 sm:gap-5">
           <figure class="col-span-12 sm:col-span-7 overflow-hidden rounded-[3px] imgrv">
-            <img src="<?= e(u('living')) ?>" alt="Light-filled living room in a 3 BHK residence at Coming Keys, Gurugram"
+            <img src="<?= e(u('living')) ?>" alt="Light-filled living room in a 3 BHK residence at Indiabulls Sector 104, Gurugram"
                  loading="lazy" width="900" height="1100" class="w-full h-[300px] sm:h-[440px] object-cover hover:scale-[1.04] transition-transform duration-[1.2s]">
           </figure>
           <figure class="col-span-12 sm:col-span-5 overflow-hidden rounded-[3px] imgrv rv-d1">
@@ -480,12 +483,12 @@ tailwind.config = {
                  loading="lazy" width="700" height="900" class="w-full h-[220px] sm:h-[440px] object-cover hover:scale-[1.04] transition-transform duration-[1.2s]">
           </figure>
           <figure class="col-span-12 overflow-hidden rounded-[3px] imgrv rv-d2">
-            <img src="<?= e(u('pool')) ?>" alt="The 70 metre infinity pool at the Coming Keys clubhouse"
+            <img src="<?= e(u('pool')) ?>" alt="The swimming pool at Indiabulls Sector 104, Gurugram"
                  loading="lazy" width="1400" height="700" class="w-full h-[240px] sm:h-[320px] object-cover hover:scale-[1.04] transition-transform duration-[1.2s]">
           </figure>
         </div>
 
-        <p class="text-[11.5px] text-ink-500/80 mt-4 leading-relaxed"><?= e($C['image_disclaimer']) ?></p>
+        <p class="text-[11.5px] text-ink-500/80 mt-4 leading-relaxed"><?= e($C['notices']['image']) ?></p>
 
         <!-- Stat counters -->
         <div class="grid grid-cols-2 sm:grid-cols-4 gap-px bg-line mt-5 rounded-[3px] overflow-hidden">
@@ -555,7 +558,6 @@ tailwind.config = {
                       </svg>
                     </span>
                     <h4 class="display text-[21px] sm:text-[24px] leading-tight">Unlock the <?= e($pl['type']) ?> floor plan</h4>
-                    <p class="text-[13px] text-ink-500 mt-2">Dimensioned plan sent instantly on WhatsApp.</p>
 
                     <form method="post" class="mt-5 grid gap-3.5 text-left" novalidate>
                       <input type="hidden" name="form_type" value="enquiry">
@@ -578,6 +580,7 @@ tailwind.config = {
                         View floor plan
                         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14m-6-7 7 7-7 7"/></svg>
                       </button>
+                      <?= consent_note($C) ?>
                     </form>
                   </div>
                 </div>
@@ -637,7 +640,7 @@ tailwind.config = {
     <div class="rv">
       <div class="overflow-x-auto no-sb -mx-5 px-5 sm:mx-0 sm:px-0">
         <table class="w-full min-w-[680px] border-collapse">
-          <caption class="sr-only">Price list for Coming Keys — The Reserve, Sector 104 Dwarka Expressway Gurugram</caption>
+          <caption class="sr-only">Price list for Indiabulls Sector 104, Dwarka Expressway Gurugram</caption>
           <thead>
             <tr class="text-left border-y border-ink">
               <th scope="col" class="py-4 pr-4 text-[11px] uppercase tracking-[.18em] font-bold">Configuration</th>
@@ -668,7 +671,7 @@ tailwind.config = {
     <div class="grid sm:grid-cols-2 gap-5 mt-10">
       <?php
       $notes = [
-        ['Flexible payment plans', '30:70 construction-linked, or a subvention plan with no EMI until possession.'],
+        ['Flexible payment plans', '30:70 construction-linked, or a subvention plan.'],
         ['Home loans pre-approved', 'SBI, HDFC funding, doorstep documentation.'],
       ];
       foreach ($notes as $i => $n): ?>
@@ -695,14 +698,14 @@ tailwind.config = {
           Walk through it,<br><em class="not-italic text-gold">frame by frame.</em>
         </h2>
       </div>
-      <p class="text-[13px] text-ivory/45 rv rv-d1 max-w-xs"><?= e($C['gallery_note']) ?></p>
+      <p class="text-[13px] text-ivory/45 rv rv-d1 max-w-xs"><?= e($C['notices']['gallery']) ?></p>
     </div>
 
     <div class="grid grid-cols-2 lg:grid-cols-4 auto-rows-[170px] sm:auto-rows-[210px] gap-3 sm:gap-4">
       <?php foreach ($C['gallery'] as $i => $g): ?>
         <button class="js-lb group relative overflow-hidden rounded-[3px] <?= e($g['span']) ?> rv rv-d<?= min(4, $i % 4 + 1) ?>"
                 data-full="<?= e(u($g['id'])) ?>" data-cap="<?= e($g['cap']) ?>" aria-label="Enlarge: <?= e($g['cap']) ?>">
-          <img src="<?= e(u($g['id'])) ?>" alt="<?= e($g['cap']) ?> — Coming Keys, Gurugram" loading="lazy" width="800" height="600"
+          <img src="<?= e(u($g['id'])) ?>" alt="<?= e($g['cap']) ?> — Indiabulls Sector 104, Gurugram" loading="lazy" width="800" height="600"
                class="absolute inset-0 w-full h-full object-cover transition-transform duration-[1.1s] group-hover:scale-[1.07]">
           <span class="absolute inset-0 bg-gradient-to-t from-ink/85 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></span>
           <span class="absolute left-4 bottom-3.5 right-4 text-left text-[12.5px] font-medium text-ivory translate-y-2 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition duration-500"><?= e($g['cap']) ?></span>
@@ -781,13 +784,13 @@ tailwind.config = {
     <div class="grid sm:grid-cols-3 gap-4 sm:gap-5 mt-14 sm:mt-16">
       <?php
       $strip = [
-        ['gym',    'Double-height gymnasium'],
-        ['pool',   'The 70 m infinity pool'],
-        ['lounge', 'Clubhouse lounge'],
+        ['gym',     'The gymnasium'],
+        ['lounge',  'Clubhouse lounge'],
+        ['kitchen', 'Chef’s kitchen'],
       ];
       foreach ($strip as $i => $s): ?>
         <figure class="relative overflow-hidden rounded-[3px] group imgrv rv-d<?= $i + 1 ?>">
-          <img src="<?= e(u($s[0])) ?>" alt="<?= e($s[1]) ?> at Coming Keys — The Reserve, Gurugram"
+          <img src="<?= e(u($s[0])) ?>" alt="<?= e($s[1]) ?> at Indiabulls Sector 104, Gurugram"
                loading="lazy" width="800" height="600"
                class="w-full h-[220px] sm:h-[260px] object-cover transition-transform duration-[1.2s] group-hover:scale-[1.05]">
           <figcaption class="absolute inset-x-0 bottom-0 p-4 text-ivory text-[12.5px] font-medium bg-gradient-to-t from-ink/85 to-transparent pt-10">
@@ -796,7 +799,7 @@ tailwind.config = {
         </figure>
       <?php endforeach; ?>
     </div>
-    <p class="text-[11.5px] text-ink-500/80 mt-4 leading-relaxed"><?= e($C['image_disclaimer']) ?></p>
+    <p class="text-[11.5px] text-ink-500/80 mt-4 leading-relaxed"><?= e($C['notices']['image']) ?></p>
   </div>
 </section>
 
@@ -852,7 +855,7 @@ tailwind.config = {
     <div class="relative h-[380px] sm:h-[520px] bg-ivory-300">
       <iframe
         src="https://www.google.com/maps?q=<?= e($p['map_query']) ?>&z=14&output=embed"
-        title="Map showing Coming Keys — The Reserve, Sector 104, Dwarka Expressway, Gurugram"
+        title="Map showing Indiabulls Sector 104, Dwarka Expressway, Gurugram"
         class="absolute inset-0 w-full h-full grayscale-[.35] contrast-[1.05]"
         loading="lazy" referrerpolicy="no-referrer-when-downgrade" style="border:0"></iframe>
     </div>
@@ -863,7 +866,7 @@ tailwind.config = {
         <p class="eyebrow text-gold">07 — Office address</p>
         <h2 class="display text-[30px] leading-tight mt-3">Talk to us in person</h2>
         <address class="not-italic text-[15px] text-ivory/65 mt-5 leading-relaxed">
-          <?= e($C['office']['name']) ?><br><?= e($C['office']['address']) ?>
+          <?= e($b['legal_name']) ?><br><?= e($b['address']) ?>
         </address>
         <dl class="mt-7 space-y-3 text-[14px]">
           <div class="flex gap-3"><dt class="text-ivory/45 w-20 shrink-0">Open</dt><dd>All days · 10:00 – 19:00</dd></div>
@@ -874,10 +877,42 @@ tailwind.config = {
           <button data-modal-open data-modal-src="site-visit" class="btn btn-gold h-11 px-6 rounded-full text-[13.5px]">Book a site visit</button>
           <a href="https://www.google.com/maps/dir/?api=1&destination=<?= e($p['map_query']) ?>" target="_blank" rel="noopener"
              class="btn h-11 px-6 rounded-full text-[13.5px] border border-ivory/25 text-ivory hover:bg-ivory hover:text-ink">Directions to site</a>
-          <a href="https://www.google.com/maps/dir/?api=1&destination=<?= e($C['office']['map_query']) ?>" target="_blank" rel="noopener"
+          <a href="https://www.google.com/maps/dir/?api=1&destination=<?= e($b['map_query']) ?>" target="_blank" rel="noopener"
              class="btn h-11 px-6 rounded-full text-[13.5px] border border-ivory/25 text-ivory hover:bg-ivory hover:text-ink">Directions to office</a>
         </div>
-        <p class="text-[12px] text-ivory/40 mt-6">Complimentary chauffeur pick-up &amp; drop within Delhi NCR for scheduled visits.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════ FAQ ══ -->
+<section id="faq" class="scroll-mt-20 bg-ivory-200 border-y border-line py-20 sm:py-28">
+  <div class="max-w-8xl mx-auto px-5 sm:px-8">
+    <div class="grid lg:grid-cols-12 gap-10 lg:gap-16">
+
+      <div class="lg:col-span-4">
+        <p class="eyebrow text-gold-700 rv">FAQ</p>
+        <div class="rule w-20 mt-3.5 mb-6 rv"></div>
+        <h2 class="display font-light text-[clamp(1.8rem,4vw,2.8rem)] leading-[1.05] tracking-tightest rv">
+          Answers,<br>before you <em class="not-italic text-gold-600">ask.</em>
+        </h2>
+        <p class="mt-6 text-[14.5px] text-ink-500 leading-relaxed rv rv-d1">
+          Something not covered here? Call <a href="tel:+<?= e($b['phone_raw']) ?>" class="text-ink font-semibold border-b border-gold"><?= e($b['phone']) ?></a> — a real person picks up.
+        </p>
+      </div>
+
+      <div class="lg:col-span-8 min-w-0">
+        <?php foreach ($C['faq'] as $i => $f): ?>
+          <details class="group border-b border-line rv rv-d<?= min(4, $i % 4 + 1) ?>" <?= $i === 0 ? 'open' : '' ?>>
+            <summary class="flex items-start justify-between gap-6 py-6 select-none">
+              <h3 class="display text-[18.5px] sm:text-[21px] font-normal leading-snug pr-4"><?= e($f[0]) ?></h3>
+              <span class="faq-ico shrink-0 mt-1 w-8 h-8 grid place-items-center rounded-full border border-line group-hover:border-gold group-hover:bg-gold transition-all duration-300">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+              </span>
+            </summary>
+            <p class="pb-7 -mt-1 pr-14 text-[15px] leading-relaxed text-ink-500"><?= e($f[1]) ?></p>
+          </details>
+        <?php endforeach; ?>
       </div>
     </div>
   </div>
@@ -888,58 +923,101 @@ tailwind.config = {
 <!-- ═══════════════════════════════════════════════════ FOOTER ══ -->
 <footer class="bg-ink-800 text-ivory/60 pt-16 pb-32 lg:pb-10 border-t border-white/[.07]">
   <div class="max-w-8xl mx-auto px-5 sm:px-8">
-    <div class="grid md:grid-cols-12 gap-10 pb-12 border-b border-white/[.08]">
 
-      <div class="md:col-span-5">
-        <img src="<?= e(logo()) ?>" alt="<?= e($b['name']) ?> — <?= e($b['tagline']) ?>"
+    <div class="grid md:grid-cols-12 gap-10 lg:gap-12 pb-12 border-b border-white/[.08]">
+
+      <!-- Operator -->
+      <div class="md:col-span-4">
+        <img src="<?= e(logo()) ?>" alt="<?= e($b['name']) ?>"
              width="393" height="103" class="h-11 w-auto" loading="lazy">
-        <p class="mt-5 text-[14px] leading-relaxed max-w-sm"><?= e($p['name']) ?> — a 17-acre gated estate of 3 &amp; 3.5 BHK residences on the Dwarka Expressway, Gurugram.</p>
-        <div class="flex gap-3 mt-6">
+        <p class="mt-5 text-[14px] leading-relaxed max-w-sm"><?= e($p['name']) ?>, a 17-acre gated estate of 3 &amp; 3.5 BHK residences on the Dwarka Expressway, Gurugram.</p>
+
+        <p class="eyebrow text-ivory mt-8 mb-4">Company Details</p>
+        <dl class="text-[13px] leading-relaxed space-y-2">
           <?php
-          $soc = [
-            ['Instagram','M12 2c2.7 0 3.1 0 4.1.06 1 .04 1.7.2 2.3.44a4.6 4.6 0 0 1 1.7 1.1 4.6 4.6 0 0 1 1.1 1.7c.24.6.4 1.3.44 2.3.06 1 .06 1.4.06 4.1s0 3.1-.06 4.1c-.04 1-.2 1.7-.44 2.3a4.9 4.9 0 0 1-2.8 2.8c-.6.24-1.3.4-2.3.44-1 .06-1.4.06-4.1.06s-3.1 0-4.1-.06c-1-.04-1.7-.2-2.3-.44a4.9 4.9 0 0 1-2.8-2.8c-.24-.6-.4-1.3-.44-2.3C2.4 15.1 2.4 14.7 2.4 12s0-3.1.06-4.1c.04-1 .2-1.7.44-2.3a4.9 4.9 0 0 1 2.8-2.8c.6-.24 1.3-.4 2.3-.44C9 2 9.4 2 12 2Zm0 5a5 5 0 1 0 0 10 5 5 0 0 0 0-10Zm0 8.2a3.2 3.2 0 1 1 0-6.4 3.2 3.2 0 0 1 0 6.4ZM18.4 6.8a1.2 1.2 0 1 1-2.4 0 1.2 1.2 0 0 1 2.4 0Z'],
-            ['Facebook','M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.3v7A10 10 0 0 0 22 12Z'],
-            ['YouTube','M23 12s0-3.2-.4-4.7a2.5 2.5 0 0 0-1.8-1.8C19.3 5 12 5 12 5s-7.3 0-8.8.5A2.5 2.5 0 0 0 1.4 7.3C1 8.8 1 12 1 12s0 3.2.4 4.7c.2.9.9 1.6 1.8 1.8 1.5.5 8.8.5 8.8.5s7.3 0 8.8-.5a2.5 2.5 0 0 0 1.8-1.8C23 15.2 23 12 23 12ZM9.8 15.3V8.7l6 3.3-6 3.3Z'],
+          $company = [
+            ['Legal name',        $b['legal_name']],
+            ['Brand name',        $b['name']],
+            ['Business role',     $b['role']],
+            ['Website operator',  $b['legal_name']],
+            ['Registered address',$b['address']],
+            ['GSTIN',             $b['gstin']],
           ];
-          foreach ($soc as $s): ?>
-            <a href="#" aria-label="<?= e($s[0]) ?>" class="w-9 h-9 grid place-items-center rounded-full border border-white/12 hover:border-gold hover:text-gold transition-colors">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="<?= $s[1] ?>"/></svg>
-            </a>
+          foreach ($company as $c): ?>
+            <div class="flex gap-2">
+              <dt class="text-ivory/40 shrink-0 w-[122px]"><?= e($c[0]) ?></dt>
+              <dd class="min-w-0"><?= e($c[1]) ?></dd>
+            </div>
           <?php endforeach; ?>
+          <div class="flex gap-2">
+            <dt class="text-ivory/40 shrink-0 w-[122px]">Mail ID</dt>
+            <dd class="min-w-0"><a href="mailto:<?= e($b['email']) ?>" class="hover:text-gold transition-colors break-all"><?= e($b['email']) ?></a></dd>
+          </div>
+        </dl>
+      </div>
+
+      <!-- Project details -->
+      <div class="md:col-span-5">
+        <p class="eyebrow text-ivory mb-4">Project Details</p>
+        <dl class="text-[13px] leading-relaxed space-y-2">
+          <?php
+          $proj = [
+            ['Developer name',  $p['developer']],
+            ['Project address', $p['address']],
+            ['Office address',  $p['dev_office']],
+            ['Project status',  $p['status']],
+            ['RERA number',     $p['rera']],
+            ['Possession date', 'October 2030'],
+          ];
+          foreach ($proj as $r): ?>
+            <div class="flex gap-2">
+              <dt class="text-ivory/40 shrink-0 w-[122px]"><?= e($r[0]) ?></dt>
+              <dd class="min-w-0"><?= e($r[1]) ?></dd>
+            </div>
+          <?php endforeach; ?>
+        </dl>
+
+        <div class="mt-5 p-4 border border-white/10 rounded-[3px]">
+          <p class="text-[10.5px] uppercase tracking-[.18em] text-gold font-bold">HRERA Registration</p>
+          <p class="text-[12.5px] mt-2"><?= e($p['rera']) ?></p>
+          <p class="text-[12px] text-ivory/45 mt-1.5">Date: <?= e($p['rera_date']) ?> &middot;
+            <a href="<?= e($p['rera_url']) ?>" target="_blank" rel="noopener nofollow" class="text-gold hover:underline">www.haryanarera.gov.in</a>
+          </p>
+        </div>
+
+        <div class="mt-5 space-y-2 text-[12px] text-ivory/45 leading-relaxed">
+          <p><span class="text-ivory/70 font-semibold">Pricing disclaimer:</span> Starts at <?= e($p['price_from']) ?>*. <?= e($C['notices']['price_note']) ?></p>
+          <p><span class="text-ivory/70 font-semibold">Image disclaimer:</span> <?= e($C['notices']['image_note']) ?></p>
         </div>
       </div>
 
-      <nav class="md:col-span-3" aria-label="Footer">
-        <p class="eyebrow text-ivory mb-5">Explore</p>
-        <ul class="space-y-2.5 text-[14px]">
-          <?php foreach ($navItems as $id => $label): ?>
-            <li><a href="#<?= e($id) ?>" class="hover:text-gold transition-colors"><?= e($label) ?></a></li>
-          <?php endforeach; ?>
-        </ul>
-      </nav>
+      <!-- Explore + contact -->
+      <div class="md:col-span-3">
+        <p class="eyebrow text-ivory mb-4">Explore</p>
+        <nav aria-label="Footer">
+          <ul class="space-y-2.5 text-[14px]">
+            <?php foreach ($navItems as $id => $label): ?>
+              <li><a href="#<?= e($id) ?>" class="hover:text-gold transition-colors"><?= e($label) ?></a></li>
+            <?php endforeach; ?>
+          </ul>
+        </nav>
 
-      <div class="md:col-span-4">
-        <p class="eyebrow text-ivory mb-5">Sales &amp; site office</p>
-        <address class="not-italic text-[14px] leading-relaxed"><?= e($b['address']) ?></address>
-        <p class="mt-4 text-[14px]">
+        <p class="eyebrow text-ivory mt-8 mb-4">Talk to us</p>
+        <p class="text-[14px] leading-relaxed">
           <a href="tel:+<?= e($b['phone_raw']) ?>" class="block hover:text-gold transition-colors"><?= e($b['phone']) ?></a>
-          <a href="mailto:<?= e($b['email']) ?>" class="block hover:text-gold transition-colors"><?= e($b['email']) ?></a>
+          <a href="mailto:<?= e($b['email']) ?>" class="block hover:text-gold transition-colors break-all"><?= e($b['email']) ?></a>
         </p>
-        <div class="mt-6 p-4 border border-white/10 rounded-[3px]">
-          <p class="text-[10.5px] uppercase tracking-[.18em] text-gold font-bold">HARERA Registration</p>
-          <p class="text-[12.5px] mt-2 break-all"><?= e($p['rera']) ?></p>
-          <a href="<?= e($p['rera_url']) ?>" target="_blank" rel="noopener nofollow" class="text-[12px] text-gold hover:underline mt-1 inline-block">Verify at haryanarera.gov.in →</a>
-        </div>
       </div>
     </div>
 
-    <div class="pt-8 grid md:grid-cols-2 gap-5 items-start">
-      <p class="text-[11.5px] leading-relaxed text-ivory/35 max-w-3xl">
-        <strong class="text-ivory/55">Disclaimer:</strong> This website is for informational purposes only and does not constitute an offer or contract. All images, plans and specifications are artistic impressions and indicative; the developer reserves the right to alter them without notice. Areas stated are carpet areas as defined under RERA. Prices are exclusive of GST, stamp duty, registration, IFMS, club membership and other statutory charges, and are subject to revision without notice. Prospective purchasers should verify all details with the sales team and the HARERA registration before booking. By submitting your details you consent to be contacted by us and our authorised channel partners, overriding any DNC/NDNC registration.
+    <div class="pt-8 grid lg:grid-cols-[1fr_auto] gap-6 items-start">
+      <p class="text-[11.5px] leading-relaxed text-ivory/35 max-w-4xl">
+        <strong class="text-ivory/55">Disclaimer:</strong> <?= e($C['notices']['disclaimer']) ?>
       </p>
-      <p class="text-[11.5px] text-ivory/35 md:text-right">
-        © <?= date('Y') ?> <?= e($b['legal_name']) ?>. All rights reserved.<br>
-        <a href="#" class="hover:text-gold">Privacy Policy</a> · <a href="#" class="hover:text-gold">Terms of Use</a>
+      <p class="text-[11.5px] text-ivory/35 lg:text-right">
+        &copy; <?= date('Y') ?> <?= e($b['legal_name']) ?>. All rights reserved.<br>
+        <a href="privacy-policy.php" class="hover:text-gold">Privacy Policy</a> &middot;
+        <a href="privacy-policy.php#terms" class="hover:text-gold">Terms &amp; Conditions</a>
       </p>
     </div>
   </div>
@@ -968,17 +1046,17 @@ tailwind.config = {
     <div id="modal-card" class="relative w-full max-w-[880px] bg-ivory rounded-[3px] overflow-hidden shadow-2xl grid md:grid-cols-2 transition-all duration-500 opacity-0 translate-y-4">
 
       <div class="relative hidden md:block">
-        <img src="<?= e(u('lounge')) ?>" alt="Clubhouse lounge at Coming Keys" loading="lazy" class="absolute inset-0 w-full h-full object-cover">
+        <img src="<?= e(u('lounge')) ?>" alt="Clubhouse lounge at Indiabulls Sector 104" loading="lazy" class="absolute inset-0 w-full h-full object-cover">
         <div class="absolute inset-0 bg-gradient-to-t from-ink via-ink/40 to-transparent"></div>
         <div class="absolute bottom-0 p-8 text-ivory">
-          <p class="eyebrow text-gold">Coming Keys</p>
+          <p class="eyebrow text-gold">Authorized Channel Partner</p>
           <p class="display text-[26px] leading-tight mt-2">Priority allotment for early registrations</p>
           <ul class="mt-5 space-y-2 text-[13px] text-ivory/70">
             <?php foreach (['Full cost sheet & payment plan','Unit availability chart','48-hour unit hold, no payment'] as $x): ?>
               <li class="flex gap-2.5"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#F5B301" stroke-width="2.6" stroke-linecap="round" class="shrink-0 mt-0.5"><path d="m5 13 4 4L19 7"/></svg><?= e($x) ?></li>
             <?php endforeach; ?>
           </ul>
-          <p class="mt-5 text-[10.5px] text-ivory/40 leading-relaxed"><?= e($C['image_disclaimer']) ?></p>
+          <p class="mt-5 text-[10.5px] text-ivory/40 leading-relaxed"><?= e($C['notices']['image']) ?></p>
         </div>
       </div>
 
@@ -1017,7 +1095,7 @@ tailwind.config = {
             Request a callback
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14m-6-7 7 7-7 7"/></svg>
           </button>
-          <p class="text-[11px] text-ink-500/80">By submitting you authorise us to contact you regarding this project.</p>
+          <?= consent_note($C) ?>
         </form>
       </div>
     </div>
@@ -1039,7 +1117,7 @@ tailwind.config = {
     <img id="lb-img" src="" alt="" class="max-h-[76vh] max-w-full object-contain rounded-[3px]">
     <figcaption class="text-center">
       <span id="lb-cap" class="block text-ivory/70 text-[13px] tracking-wide"></span>
-      <span class="block text-ivory/35 text-[11px] mt-1.5"><?= e($C['image_disclaimer']) ?></span>
+      <span class="block text-ivory/35 text-[11px] mt-1.5"><?= e($C['notices']['image']) ?></span>
     </figcaption>
   </figure>
 </div>
