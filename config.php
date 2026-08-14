@@ -136,13 +136,17 @@ return [
 
     /* -------------------------------------------------------- Gallery ---- */
     'gallery' => [
-        ['id' => 'hero',    'cap' => 'Tower elevation',    'span' => 'lg:col-span-2 lg:row-span-2'],
-        ['id' => 'living',  'cap' => 'Living room, 3 BHK', 'span' => ''],
-        ['id' => 'bedroom', 'cap' => 'Primary bedroom',    'span' => ''],
-        ['id' => 'gym',     'cap' => 'The gymnasium',      'span' => ''],
-        ['id' => 'lounge',  'cap' => 'Clubhouse lounge',   'span' => 'lg:col-span-2'],
-        ['id' => 'skyline', 'cap' => 'Façade detail',      'span' => ''],
-        ['id' => 'kitchen', 'cap' => 'Chef’s kitchen',     'span' => ''],
+        ['id' => 'hero',      'cap' => 'Towers and pool at night',  'span' => 'lg:col-span-2 lg:row-span-2'],
+        ['id' => 'clubhouse', 'cap' => 'The clubhouse at dusk',     'span' => ''],
+        ['id' => 'sports',    'cap' => 'Sports courts, aerial view','span' => ''],
+        /* One 2x2 plus one 2x1 makes the eight tiles fill a 4-column grid
+           exactly (4 + 2 + 6 = 12 cells); moving the wide tile elsewhere
+           leaves a hole in the second row. */
+        ['id' => 'greens',    'cap' => 'Tower and central green',   'span' => 'lg:col-span-2'],
+        ['id' => 'courtyard', 'cap' => 'Landscaped courtyard',      'span' => ''],
+        ['id' => 'arrival',   'cap' => 'The arrival court',         'span' => ''],
+        ['id' => 'pooldeck',  'cap' => 'Poolside deck',             'span' => ''],
+        ['id' => 'gardens',   'cap' => 'Landscaped gardens',        'span' => ''],
     ],
 
     /* ------------------------------------------------------------ SEO ---- */

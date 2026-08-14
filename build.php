@@ -68,9 +68,14 @@ function removeDir(string $dir): void
 
 function copyDir(string $src, string $dst): int
 {
-    // Source-only artefacts: the original logo supplied by the client is kept
-    // in the repo but there is no reason to publish it alongside the PNG.
-    $skipPatterns = ['/^WhatsApp Image/i', '/^logo\.jpe?g$/i', '/\.psd$/i', '/\.ai$/i', '/^\./'];
+    // Source-only artefacts: the originals supplied by the client stay in the
+    // repo, but there is no reason to publish them beside the derived files.
+    $skipPatterns = [
+        '/^WhatsApp Image/i',   // raw phone exports
+        '/^logo\.jpe?g$/i',     // logo source, superseded by the cut-out PNG
+        '/^new-assets$/i',      // render sources, copied out under real names
+        '/\.psd$/i', '/\.ai$/i', '/^\./',
+    ];
 
     if (!is_dir($src)) {
         return 0;

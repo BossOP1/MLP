@@ -316,8 +316,8 @@ tailwind.config = {
 <!-- ════════════════════════════════════════════════════ HERO ══ -->
 <section class="relative -mt-[68px] min-h-[100svh] flex items-end overflow-hidden bg-ink">
   <img src="<?= e(u('hero')) ?>"
-       alt="Indiabulls Sector 104 — residential towers on Dwarka Expressway, Gurugram"
-       class="absolute inset-0 w-full h-full object-cover" fetchpriority="high" width="1800" height="1200">
+       alt="Indiabulls Sector 104 — residential towers and pool at night, Dwarka Expressway, Gurugram"
+       class="absolute inset-0 w-full h-full object-cover" fetchpriority="high" width="547" height="365">
   <div class="absolute inset-0 bg-gradient-to-t from-ink via-ink/70 to-ink/45"></div>
   <div class="absolute inset-0 bg-gradient-to-r from-ink/85 via-ink/20 to-transparent"></div>
   <div class="absolute inset-0 grain"></div>
@@ -475,16 +475,16 @@ tailwind.config = {
       <div class="lg:col-span-7">
         <div class="grid grid-cols-12 gap-4 sm:gap-5">
           <figure class="col-span-12 sm:col-span-7 overflow-hidden rounded-[3px] imgrv">
-            <img src="<?= e(u('living')) ?>" alt="Light-filled living room in a 3 BHK residence at Indiabulls Sector 104, Gurugram"
-                 loading="lazy" width="900" height="1100" class="w-full h-[300px] sm:h-[440px] object-cover hover:scale-[1.04] transition-transform duration-[1.2s]">
+            <img src="<?= e(u('clubhouse')) ?>" alt="The clubhouse at dusk, Indiabulls Sector 104, Gurugram"
+                 loading="lazy" width="554" height="554" class="w-full h-[300px] sm:h-[440px] object-cover hover:scale-[1.04] transition-transform duration-[1.2s]">
           </figure>
           <figure class="col-span-12 sm:col-span-5 overflow-hidden rounded-[3px] imgrv rv-d1">
-            <img src="<?= e(u('bedroom')) ?>" alt="Primary bedroom with floor-to-ceiling glazing"
-                 loading="lazy" width="700" height="900" class="w-full h-[220px] sm:h-[440px] object-cover hover:scale-[1.04] transition-transform duration-[1.2s]">
+            <img src="<?= e(u('sports')) ?>" alt="Sports courts and clubhouse, aerial view of Indiabulls Sector 104"
+                 loading="lazy" width="654" height="468" class="w-full h-[220px] sm:h-[440px] object-cover hover:scale-[1.04] transition-transform duration-[1.2s]">
           </figure>
           <figure class="col-span-12 overflow-hidden rounded-[3px] imgrv rv-d2">
-            <img src="<?= e(u('pool')) ?>" alt="The swimming pool at Indiabulls Sector 104, Gurugram"
-                 loading="lazy" width="1400" height="700" class="w-full h-[240px] sm:h-[320px] object-cover hover:scale-[1.04] transition-transform duration-[1.2s]">
+            <img src="<?= e(u('greens')) ?>" alt="Tower overlooking the central green at Indiabulls Sector 104"
+                 loading="lazy" width="671" height="298" class="w-full h-[240px] sm:h-[320px] object-cover hover:scale-[1.04] transition-transform duration-[1.2s]">
           </figure>
         </div>
 
@@ -705,7 +705,7 @@ tailwind.config = {
       <?php foreach ($C['gallery'] as $i => $g): ?>
         <button class="js-lb group relative overflow-hidden rounded-[3px] <?= e($g['span']) ?> rv rv-d<?= min(4, $i % 4 + 1) ?>"
                 data-full="<?= e(u($g['id'])) ?>" data-cap="<?= e($g['cap']) ?>" aria-label="Enlarge: <?= e($g['cap']) ?>">
-          <img src="<?= e(u($g['id'])) ?>" alt="<?= e($g['cap']) ?> — Indiabulls Sector 104, Gurugram" loading="lazy" width="800" height="600"
+          <img src="<?= e(u($g['id'])) ?>" alt="<?= e($g['cap']) ?> — Indiabulls Sector 104, Gurugram" loading="lazy" width="700" height="470"
                class="absolute inset-0 w-full h-full object-cover transition-transform duration-[1.1s] group-hover:scale-[1.07]">
           <span class="absolute inset-0 bg-gradient-to-t from-ink/85 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></span>
           <span class="absolute left-4 bottom-3.5 right-4 text-left text-[12.5px] font-medium text-ivory translate-y-2 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition duration-500"><?= e($g['cap']) ?></span>
@@ -784,14 +784,14 @@ tailwind.config = {
     <div class="grid sm:grid-cols-3 gap-4 sm:gap-5 mt-14 sm:mt-16">
       <?php
       $strip = [
-        ['gym',     'The gymnasium'],
-        ['lounge',  'Clubhouse lounge'],
-        ['kitchen', 'Chef’s kitchen'],
+        ['courtyard', 'Landscaped courtyard'],
+        ['pooldeck',  'Poolside deck'],
+        ['gardens',   'Landscaped gardens'],
       ];
       foreach ($strip as $i => $s): ?>
         <figure class="relative overflow-hidden rounded-[3px] group imgrv rv-d<?= $i + 1 ?>">
           <img src="<?= e(u($s[0])) ?>" alt="<?= e($s[1]) ?> at Indiabulls Sector 104, Gurugram"
-               loading="lazy" width="800" height="600"
+               loading="lazy" width="700" height="470"
                class="w-full h-[220px] sm:h-[260px] object-cover transition-transform duration-[1.2s] group-hover:scale-[1.05]">
           <figcaption class="absolute inset-x-0 bottom-0 p-4 text-ivory text-[12.5px] font-medium bg-gradient-to-t from-ink/85 to-transparent pt-10">
             <?= e($s[1]) ?>
@@ -1046,7 +1046,7 @@ tailwind.config = {
     <div id="modal-card" class="relative w-full max-w-[880px] bg-ivory rounded-[3px] overflow-hidden shadow-2xl grid md:grid-cols-2 transition-all duration-500 opacity-0 translate-y-4">
 
       <div class="relative hidden md:block">
-        <img src="<?= e(u('lounge')) ?>" alt="Clubhouse lounge at Indiabulls Sector 104" loading="lazy" class="absolute inset-0 w-full h-full object-cover">
+        <img src="<?= e(u('clubhouse')) ?>" alt="The clubhouse at Indiabulls Sector 104" loading="lazy" class="absolute inset-0 w-full h-full object-cover">
         <div class="absolute inset-0 bg-gradient-to-t from-ink via-ink/40 to-transparent"></div>
         <div class="absolute bottom-0 p-8 text-ivory">
           <p class="eyebrow text-gold">Authorized Channel Partner</p>
